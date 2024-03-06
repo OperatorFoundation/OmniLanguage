@@ -10,3 +10,11 @@ import Foundation
 public class Blocking: Sequencer
 {
 }
+
+extension Blocking: CustomStringConvertible
+{
+    public var description: String
+    {
+        return Awaiting().description
+    }
+}

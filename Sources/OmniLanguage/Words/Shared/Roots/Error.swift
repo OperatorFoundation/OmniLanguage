@@ -9,7 +9,7 @@ import Foundation
 
 import Text
 
-public class Error: Root
+public class Erroneous: Root
 {
     public init()
     {

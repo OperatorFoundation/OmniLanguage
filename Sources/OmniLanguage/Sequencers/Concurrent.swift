@@ -10,3 +10,11 @@ import Foundation
 public class Concurrent: Sequencer
 {
 }
+
+extension Concurrent: CustomStringConvertible
+{
+    public var description: String
+    {
+        return Simultaneously().description
+    }
+}

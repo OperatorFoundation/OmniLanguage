@@ -9,5 +9,8 @@ import Foundation
 
 public enum Referent
 {
-    case 
+    case effect(any Effect)
+    case composition(Composition)
+    case sequencer(Sequencer)
+    
 }

@@ -13,6 +13,6 @@ public class ErrorCatching: AffixedWord
 {
     public init()
     {
-        super.init(roots: [Error(), Catch()], suffixes: [Adverb()])
+        super.init(roots: [Erroneous(), Catch()], suffixes: [Adverb()])
     }
 }

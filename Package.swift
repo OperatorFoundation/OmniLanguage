@@ -14,9 +14,17 @@ let package = Package(
         .library(
             name: "OmniLanguage",
             targets: ["OmniLanguage"]),
+        .library(
+            name: "OmniCompiler",
+            targets: ["OmniCompiler"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/blanu/Blueprint", branch: "main"),
+        .package(url: "https://github.com/blanu/Daydream", branch: "main"),
+        .package(url: "https://github.com/OperatorFoundation/Ghostwriter", branch: "main"),
+        .package(url: "https://github.com/OperatorFoundation/Number", branch: "main"),
         .package(url: "https://github.com/OperatorFoundation/Text", branch: "main"),
+        .package(url: "https://github.com/OperatorFoundation/Time", branch: "main"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -24,12 +32,28 @@ let package = Package(
         .target(
             name: "OmniLanguage",
             dependencies: [
+                "Daydream",
+                "Ghostwriter",
+                "Number",
                 "Text",
+                "Time",
+            ]
+        ),
+        .target(
+            name: "OmniCompiler",
+            dependencies: [
+                "Blueprint",
+                "OmniLanguage",
+                "Text",
+                "Time"
             ]
         ),
         .testTarget(
             name: "OmniLanguageTests",
-            dependencies: ["OmniLanguage"]),
+            dependencies: [
+                "OmniCompiler",
+                "OmniLanguage"
+            ]),
     ],
     swiftLanguageVersions: [.v5]
 )

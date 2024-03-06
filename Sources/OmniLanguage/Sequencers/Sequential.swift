@@ -10,3 +10,11 @@ import Foundation
 public class Sequential: Sequencer
 {
 }
+
+extension Sequential: CustomStringConvertible
+{
+    public var description: String
+    {
+        return Afterwards().description
+    }
+}

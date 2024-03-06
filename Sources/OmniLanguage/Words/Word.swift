@@ -16,3 +16,11 @@ public class Word
         return "unimplemented"
     }
 }
+
+extension Word: CustomStringConvertible
+{
+    public var description: String
+    {
+        return self.text.string
+    }
+}

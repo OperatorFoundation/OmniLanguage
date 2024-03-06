@@ -9,7 +9,12 @@ import Foundation
 
 public class Catching: Sequencer
 {
-    public override init()
+}
+
+extension Catching: CustomStringConvertible
+{
+    public var description: String
     {
+        return ErrorCatching().description
     }
 }

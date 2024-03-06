@@ -7,9 +7,6 @@
 
 import Foundation
 
-public class Sequencer
+public protocol Sequencer: CustomStringConvertible
 {
-    public init()
-    {
-    }
 }
