@@ -158,26 +158,28 @@ public class SwiftOmniCompiler: OmniCompiler
 
     func typedTextToLiteralValue(_ typedText: TypedText) -> LiteralValue
     {
-        switch typedText
-        {
-            case .generator(let value):
-                throw SwiftOmniCompilerError.unsupportedEffect(typedText)
+//        switch typedText
+//        {
+//            case .generator(let value):
+//                throw SwiftOmniCompilerError.unsupportedEffect(typedText)
+//
+//            case .newline(let value):
+//                return LiteralValue.constructor(
+//                    .named("TypedText.newline"),
+//                    [
+//                        .constructor(.named(<#T##Text#>), <#T##[LiteralValue]#>)
+//                    ]
+//                )
+//
+//            case .regexp(let value):
+//
+//
+//            case .special(let value):
+//            case .string(let value):
+//            case .text(let value):
+//        }
 
-            case .newline(let value):
-                return LiteralValue.constructor(
-                    .named("TypedText.newline"),
-                    [
-                        .constructor(.named(<#T##Text#>), <#T##[LiteralValue]#>)
-                    ]
-                )
-
-            case .regexp(let value):
-
-
-            case .special(let value):
-            case .string(let value):
-            case .text(let value):
-        }
+        return LiteralValue.number(0)
     }
 }
 
