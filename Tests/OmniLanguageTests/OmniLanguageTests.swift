@@ -169,4 +169,52 @@ final class OmniLanguageTests: XCTestCase
 
         print(result)
     }
+
+    func testCompilePop3Client() throws
+    {
+        /*
+         S> +OK POP3 server ready.
+         C> STLS
+         S> +OK Begin TLS Negotiation
+         */
+
+        let effect1 = GhostwriterListenEffect()
+        let binding1 = Binding(value: .structuredText(StructuredText(
+            .text("+OK POP3 server ready."), .newline(.crlf)
+        )))
+        let refinement1 = Refinement(name: "timeout", value: .timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
+        let instance1 = EffectInstance(effect: effect1, binding: binding1, refinement: refinement1)
+
+        let effect2 = GhostwriterSpeakEffect()
+        let binding2 = Binding(value: .structuredText(StructuredText(
+            .text("STLS"), .newline(.crlf)
+        )))
+        let instance2 = EffectInstance(effect: effect2, binding: binding2)
+
+        let effect3 = GhostwriterListenEffect()
+        let binding3 = Binding(value: .structuredText(StructuredText(
+            .text("+OK Begin TLS Negotiation"), .newline(.crlf)
+        )))
+        let refinement3 = Refinement(name: "timeout", value: .timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
+        let instance3 = EffectInstance(effect: effect3, binding: binding3, refinement: refinement3)
+
+        let chain = EffectChain(
+            instance: instance1,
+            sequencer: Blocking(),
+            chain: EffectChain(
+                instance: instance2,
+                sequencer: Sequential(),
+                chain: EffectChain(
+                    instance: instance3
+                )
+            )
+        )
+
+        print(chain.description)
+
+        let compiler = SwiftOmniCompiler()
+        let result = try compiler.compile("POP3Server", chain)
+
+        print(result)
+    }
 }
