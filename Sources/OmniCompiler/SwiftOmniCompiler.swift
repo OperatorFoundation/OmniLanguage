@@ -70,6 +70,10 @@ public class SwiftOmniCompiler: OmniCompiler
             case is Blocking:
                 return try self.chainToStatements(nextChain)
 
+            // FIXME - for now, treat blocking and sequential as the same
+            case is Sequential:
+                return try self.chainToStatements(nextChain)
+
             default:
                 throw SwiftOmniCompilerError.unsupportedSequencer(sequencer)
         }
@@ -92,7 +96,7 @@ public class SwiftOmniCompiler: OmniCompiler
                 throw SwiftOmniCompilerError.bindingTypeMismtatch
         }
 
-        var arguments: [Argument] = [self.structuredTextToArgument(structuredText)]
+        var arguments: [Argument] = try [self.structuredTextToArgument(structuredText)]
         if let refinement
         {
             guard refinement.name == "timeout" else
@@ -145,41 +149,70 @@ public class SwiftOmniCompiler: OmniCompiler
         return Statement.expression(.functionCall(FunctionCall(
             trying: true,
             name: "self.speak",
-            arguments: [self.structuredTextToArgument(structuredText)]
+            arguments: [try self.structuredTextToArgument(structuredText)]
         )))
     }
 
-    func structuredTextToArgument(_ structuredText: StructuredText) -> Argument
+    func structuredTextToArgument(_ structuredText: StructuredText) throws -> Argument
     {
-        let literals: [LiteralValue] = structuredText.texts.map(self.typedTextToLiteralValue)
+        let literals: [LiteralValue] = try structuredText.texts.map(self.typedTextToLiteralValue)
 
         return Argument(value: .literal(.constructor(.named("StructuredText"), literals)))
     }
 
-    func typedTextToLiteralValue(_ typedText: TypedText) -> LiteralValue
+    func typedTextToLiteralValue(_ typedText: TypedText) throws -> LiteralValue
     {
-//        switch typedText
-//        {
-//            case .generator(let value):
-//                throw SwiftOmniCompilerError.unsupportedEffect(typedText)
-//
-//            case .newline(let value):
-//                return LiteralValue.constructor(
-//                    .named("TypedText.newline"),
-//                    [
-//                        .constructor(.named(<#T##Text#>), <#T##[LiteralValue]#>)
-//                    ]
-//                )
-//
-//            case .regexp(let value):
-//
-//
-//            case .special(let value):
-//            case .string(let value):
-//            case .text(let value):
-//        }
+        switch typedText
+        {
+            case .generator(_):
+                throw SwiftOmniCompilerError.unsupportedTypedText(typedText)
 
-        return LiteralValue.number(0)
+            case .newline(let value):
+                return .enumCaseConstructor(EnumCaseConstructor(
+                    type: "TypedText",
+                    name: "newline",
+                    values: [
+                        .literal(.enumCaseConstructor(EnumCaseConstructor(
+                            type: "Newline",
+                            name: value.rawValue.text
+                        )))
+                    ]
+                ))
+
+            case .regexp(let value):
+                return .enumCaseConstructor(EnumCaseConstructor(
+                    type: "TypedText",
+                    name: "regexp",
+                    values: [.literal(.string(value.text))]
+                ))
+
+            case .special(let value):
+                return .enumCaseConstructor(EnumCaseConstructor(
+                    type: "TypedText",
+                    name: "special",
+                    values: [
+                        .literal(.enumCaseConstructor(EnumCaseConstructor(
+                            type: "SpecialCharacter",
+                            name: value.rawValue.text
+                        )))                    
+                    ]
+                ))
+
+            case .string(let value):
+                return .enumCaseConstructor(EnumCaseConstructor(
+                    type: "TypedText",
+                    name: "string",
+                    values: [.literal(.string(value.text))]
+                ))
+
+            case .text(let value):
+                return .enumCaseConstructor(EnumCaseConstructor(
+                    type: "TypedText",
+                    name: "text",
+                    values: [.literal(.string(value))]
+                ))
+
+        }
     }
 }
 
