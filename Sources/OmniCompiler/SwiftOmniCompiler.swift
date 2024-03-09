@@ -15,6 +15,8 @@ import Time
 
 public class SwiftOmniCompiler: OmniCompiler
 {
+    public init(){}
+    
     public func compile(_ name: Text, _ chain: EffectChain) throws -> Text
     {
         let blueprint = try self.compileToBlueprint(name: name, chain: chain)
