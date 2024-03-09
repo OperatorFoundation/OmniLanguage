@@ -13,6 +13,11 @@ public struct Refinement: Composition
 {
     public let name: Text
     public let value: Value
+    
+    public init(name: Text, value: Value) {
+        self.name = name
+        self.value = value
+    }
 }
 
 extension Refinement: CustomStringConvertible
