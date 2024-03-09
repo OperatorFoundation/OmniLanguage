@@ -9,6 +9,7 @@ import Foundation
 
 public class Catching: Sequencer
 {
+    public init(){}
 }
 
 extension Catching: CustomStringConvertible

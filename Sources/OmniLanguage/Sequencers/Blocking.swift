@@ -9,6 +9,7 @@ import Foundation
 
 public class Blocking: Sequencer
 {
+    public init(){}
 }
 
 extension Blocking: CustomStringConvertible
