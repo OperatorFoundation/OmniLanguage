@@ -9,6 +9,7 @@ import Foundation
 
 public class Indifferent: Sequencer
 {
+    public init(){}
 }
 
 extension Indifferent: CustomStringConvertible

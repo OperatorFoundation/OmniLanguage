@@ -45,13 +45,15 @@ final class OmniLanguageTests: XCTestCase
         C> STLS
         S> +OK Begin TLS Negotiation
         */
-
+        
+        // Instance 1
         let effect1 = GhostwriterSpeakEffect()
         let binding1 = Binding(value: .structuredText(StructuredText(
             .text("+OK POP3 server ready."), .newline(.crlf)
         )))
         let instance1 = EffectInstance(effect: effect1, binding: binding1)
-
+        
+        // Instance 2
         let effect2 = GhostwriterListenEffect()
         let binding2 = Binding(value: .structuredText(StructuredText(
             .text("STLS"), .newline(.crlf)
@@ -59,6 +61,7 @@ final class OmniLanguageTests: XCTestCase
         let refinement = Refinement(name: "timeout", value: .timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
         let instance2 = EffectInstance(effect: effect2, binding: binding2, refinement: refinement)
 
+        // Instance
         let effect3 = GhostwriterSpeakEffect()
         let binding3 = Binding(value: .structuredText(StructuredText(
             .text("+OK Begin TLS Negotiation"), .newline(.crlf)

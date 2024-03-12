@@ -9,6 +9,7 @@ import Foundation
 
 public class Sequential: Sequencer
 {
+    public init(){}
 }
 
 extension Sequential: CustomStringConvertible

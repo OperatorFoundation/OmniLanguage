@@ -9,6 +9,7 @@ import Foundation
 
 public class Concurrent: Sequencer
 {
+    public init(){}
 }
 
 extension Concurrent: CustomStringConvertible
