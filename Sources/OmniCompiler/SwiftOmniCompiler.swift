@@ -112,7 +112,7 @@ public class SwiftOmniCompiler: OmniCompiler
                 case .timeDuration(let duration):
                     let seconds = duration.seconds()
                     let secondsInt = try seconds.toInt()
-                    arguments.append(Argument(label: "timeout", value: .literal(.number(secondsInt))))
+                    arguments.append(Argument(label: "timeout", value: .literal(.enumCaseConstructor(EnumCaseConstructor(type: "Duration", name: "seconds", values: [.literal(.number(secondsInt))])))))
 
                 default:
                     throw SwiftOmniCompilerError.unsupportedRefinementValueType(refinement.value)
@@ -162,7 +162,7 @@ public class SwiftOmniCompiler: OmniCompiler
     {
         let literals: [LiteralValue] = try structuredText.texts.map(self.typedTextToLiteralValue)
 
-        return Argument(value: .literal(.constructor(.named("StructuredText"), literals)))
+        return Argument(label: "structuredText", value: .literal(.constructor(.named("StructuredText"), literals)))
     }
 
     func typedTextToLiteralValue(_ typedText: TypedText) throws -> LiteralValue
