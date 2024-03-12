@@ -118,7 +118,7 @@ public class SwiftOmniCompiler: OmniCompiler
 
         return Statement.expression(.functionCall(FunctionCall(
             trying: true,
-            name: "self.speak",
+            name: "self.listen",
             arguments: arguments
         )))
     }
