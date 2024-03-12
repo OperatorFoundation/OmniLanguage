@@ -29,6 +29,7 @@ public class SwiftOmniCompiler: OmniCompiler
             visibility: .private,
             name: "handle\(name)".text,
             throwing: true,
+            async: true,
             statements: try self.chainToStatements(chain)
         )
     }
