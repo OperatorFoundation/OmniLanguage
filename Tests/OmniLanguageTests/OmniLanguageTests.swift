@@ -216,7 +216,7 @@ final class OmniLanguageTests: XCTestCase
         print(chain.description)
 
         let compiler = SwiftOmniCompiler()
-        let result = try compiler.compile("POP3Server", chain)
+        let result = try compiler.compile("POP3Client", chain)
 
         print(result)
     }
