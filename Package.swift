@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "OmniLanguage",
+    defaultLocalization: "eo",
     platforms: [
         .iOS(.v17),
         .macOS(.v14),
