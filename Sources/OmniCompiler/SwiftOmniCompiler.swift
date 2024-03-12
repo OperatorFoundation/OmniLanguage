@@ -119,12 +119,15 @@ public class SwiftOmniCompiler: OmniCompiler
             }
         }
 
-        return Statement.expression(.functionCall(FunctionCall(
-            trying: true,
-            async: true,
-            name: "self.listen",
-            arguments: arguments
-        )))
+        return Statement.assignment(
+            .variableDefinition(VariableDefinition(name: "_")),
+            .functionCall(FunctionCall(
+                trying: true,
+                async: true,
+                name: "self.listen",
+                arguments: arguments
+            ))
+        )
     }
 
     func speakToStatement(_ effect: GhostwriterSpeakEffect, _ binding: Binding?, _ refinement: Refinement?) throws -> Statement
