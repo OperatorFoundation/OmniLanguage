@@ -120,6 +120,7 @@ public class SwiftOmniCompiler: OmniCompiler
 
         return Statement.expression(.functionCall(FunctionCall(
             trying: true,
+            async: true,
             name: "self.listen",
             arguments: arguments
         )))
@@ -150,6 +151,7 @@ public class SwiftOmniCompiler: OmniCompiler
 
         return Statement.expression(.functionCall(FunctionCall(
             trying: true,
+            async: true,
             name: "self.speak",
             arguments: [try self.structuredTextToArgument(structuredText)]
         )))
