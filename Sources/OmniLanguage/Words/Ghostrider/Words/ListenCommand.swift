@@ -13,6 +13,6 @@ public class ListenCommand: AffixedWord
 {
     public init()
     {
-        super.init(roots: [Listen()], suffixes: [Imperative()])
+        super.init(roots: [Listen()], suffixes: [Imperative()], glyphs: Listen().glyphs)
     }
 }

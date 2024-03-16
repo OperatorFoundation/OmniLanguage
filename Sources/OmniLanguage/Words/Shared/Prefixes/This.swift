@@ -11,6 +11,6 @@ public class This: Prefix
 {
     public init()
     {
-        super.init(spelling: "ĉi")
+        super.init(spelling: "ĉi", glyphs: "⤞")
     }
 }

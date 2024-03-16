@@ -13,6 +13,6 @@ public class Print: Root
 {
     public init()
     {
-        super.init(spelling: "pres")
+        super.init(spelling: "pres", glyphs: "\\")
     }
 }

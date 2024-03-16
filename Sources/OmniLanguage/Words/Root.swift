@@ -12,10 +12,12 @@ import Text
 public class Root
 {
     public let spelling: Text
+    public let glyphs: Text
 
-    public init(spelling: Text)
+    public init(spelling: Text, glyphs: Text)
     {
         self.spelling = spelling
+        self.glyphs = glyphs
     }
 }
 

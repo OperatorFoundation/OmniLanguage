@@ -11,6 +11,6 @@ public class Authorial: Root
 {
     public init()
     {
-        super.init(spelling: "verkist")
+        super.init(spelling: "verkist", glyphs: "⟘\\")
     }
 }

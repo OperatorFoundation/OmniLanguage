@@ -13,6 +13,6 @@ public class Speak: Root
 {
     public init()
     {
-        super.init(spelling: "parol")
+        super.init(spelling: "parol", glyphs: "◯")
     }
 }

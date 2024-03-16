@@ -8,10 +8,12 @@
 import Foundation
 
 import Daydream
+import Text
 
 public protocol Effect: CustomStringConvertible, Codable
 {
     var group: EffectGroup { get }
+    var glyphs: Text { get }
 }
 
 public protocol Bindable

@@ -25,8 +25,24 @@ public class CompoundWord: Word
 
     let parts: [Word]
 
-    public init(parts: [AffixedWord])
+    public init(parts: [AffixedWord], glyphs: Text? = nil)
     {
         self.parts = parts
+
+        if let glyphs
+        {
+            super.init(glyphs: glyphs)
+        }
+        else
+        {
+            let result: MutableText = ""
+            
+            for part in self.parts
+            {
+                result.becomeAppended(part.glyphs)
+            }
+            
+            super.init(glyphs: result.text)
+        }
     }
 }

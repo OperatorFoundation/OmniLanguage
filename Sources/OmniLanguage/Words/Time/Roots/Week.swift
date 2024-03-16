@@ -13,6 +13,6 @@ public class Week: Root
 {
     public init()
     {
-        super.init(spelling: "semajn")
+        super.init(spelling: "semajn", glyphs: "⌓7")
     }
 }

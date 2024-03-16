@@ -15,6 +15,13 @@ public class Word
     {
         return "unimplemented"
     }
+
+    public var glyphs: Text
+
+    public init(glyphs: Text)
+    {
+        self.glyphs = glyphs
+    }
 }
 
 extension Word: CustomStringConvertible

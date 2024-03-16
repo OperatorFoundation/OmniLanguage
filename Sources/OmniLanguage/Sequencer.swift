@@ -7,6 +7,9 @@
 
 import Foundation
 
+import Text
+
 public protocol Sequencer: CustomStringConvertible
 {
+    var glyphs: Text { get }
 }

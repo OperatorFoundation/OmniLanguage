@@ -13,6 +13,6 @@ public class Write: Root
 {
     public init()
     {
-        super.init(spelling: "skrib")
+        super.init(spelling: "skrib", glyphs: "^\\")
     }
 }

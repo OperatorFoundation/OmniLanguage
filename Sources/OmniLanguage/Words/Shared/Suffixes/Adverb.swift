@@ -13,6 +13,6 @@ public class Adverb: Suffix
 {
     public init()
     {
-        super.init(spelling: "e")
+        super.init(spelling: "e", glyphs: "▲▼")
     }
 }

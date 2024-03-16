@@ -13,6 +13,6 @@ public class Same: Root
 {
     public init()
     {
-        super.init(spelling: "sam")
+        super.init(spelling: "sam", glyphs: "𝄗")
     }
 }

@@ -7,6 +7,8 @@
 
 import Foundation
 
+import Text
+
 public struct Binding: Composition
 {
     public let value: Value
@@ -22,5 +24,13 @@ extension Binding: CustomStringConvertible
     public var description: String
     {
         return With().description + " " + value.description
+    }
+}
+
+extension Binding
+{
+    public var glyphs: Text
+    {
+        return With().glyphs.append(" ").append(value.glyphs)
     }
 }

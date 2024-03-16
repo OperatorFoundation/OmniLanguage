@@ -13,6 +13,6 @@ public class Wait: Root
 {
     public init()
     {
-        super.init(spelling: "atendant")
+        super.init(spelling: "atendant", glyphs: "↦")
     }
 }

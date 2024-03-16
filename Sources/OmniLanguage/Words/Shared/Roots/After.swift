@@ -13,6 +13,6 @@ public class After: Root
 {
     public init()
     {
-        super.init(spelling: "post")
+        super.init(spelling: "post", glyphs: "꜏")
     }
 }

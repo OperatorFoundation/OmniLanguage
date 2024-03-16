@@ -13,6 +13,6 @@ public class Choice: Root
 {
     public init()
     {
-        super.init(spelling: "elekt")
+        super.init(spelling: "elekt", glyphs: "ⴴ")
     }
 }

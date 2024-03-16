@@ -7,6 +7,8 @@
 
 import Foundation
 
+import Text
+
 public struct EffectInstance
 {
     public var effect: Effect
@@ -40,5 +42,29 @@ extension EffectInstance: CustomStringConvertible
         }
 
         return result
+    }
+}
+
+extension EffectInstance
+{
+    public var glyphs: Text
+    {
+        let result: MutableText = ""
+
+        result.becomeAppended(effect.glyphs)
+
+        if let binding = self.binding
+        {
+            result.becomeAppended(" ")
+            result.becomeAppended(binding.glyphs)
+        }
+
+        if let refinement = self.refinement
+        {
+            result.becomeAppended(" ")
+            result.becomeAppended(refinement.glyphs)
+        }
+
+        return result.text
     }
 }

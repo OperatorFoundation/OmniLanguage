@@ -7,10 +7,13 @@
 
 import Foundation
 
+import Text
+
 public class LikeThis: SingletonWord
 {
     public init()
     {
-        super.init(spelling: "tiel")
+        super.init(spelling: "tiel", glyphs: "⎄")
     }
 }
+

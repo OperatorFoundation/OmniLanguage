@@ -14,3 +14,4 @@ public class Simultaneously: AffixedWord
         super.init(roots: [Same(), Temporal()], suffixes: [Adverb()])
     }
 }
+

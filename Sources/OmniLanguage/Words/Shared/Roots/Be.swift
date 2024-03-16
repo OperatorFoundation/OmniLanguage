@@ -11,6 +11,6 @@ public class Be: Root
 {
     public init()
     {
-        super.init(spelling: "est")
+        super.init(spelling: "est", glyphs: "⦶")
     }
 }

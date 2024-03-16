@@ -13,6 +13,6 @@ public class SpeakCommand: AffixedWord
 {
     public init()
     {
-        super.init(roots: [Speak()], suffixes: [Imperative()])
+        super.init(roots: [Speak()], suffixes: [Imperative()], glyphs: Speak().glyphs)
     }
 }

@@ -13,6 +13,6 @@ public class Day: Root
 {
     public init()
     {
-        super.init(spelling: "tag")
+        super.init(spelling: "tag", glyphs: "⌓")
     }
 }

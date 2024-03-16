@@ -7,6 +7,8 @@
 
 import Foundation
 
+import Text
+
 public class Is: AffixedWord
 {
     public init()
@@ -14,3 +16,4 @@ public class Is: AffixedWord
         super.init(roots: [Be()], suffixes: [PresentTenseVerb()])
     }
 }
+

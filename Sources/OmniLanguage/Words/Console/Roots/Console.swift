@@ -11,6 +11,6 @@ public class Console: Root
 {
     public init()
     {
-        super.init(spelling: "konzol")
+        super.init(spelling: "konzol", glyphs: "🖵")
     }
 }

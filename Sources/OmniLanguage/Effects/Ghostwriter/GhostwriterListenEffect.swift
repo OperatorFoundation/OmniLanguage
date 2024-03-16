@@ -9,6 +9,7 @@ import Foundation
 
 import Ghostwriter
 import Number
+import Text
 import Time
 
 public class GhostwriterListenEffect: Effect
@@ -33,6 +34,15 @@ extension GhostwriterListenEffect: CustomStringConvertible
 {
     public var description: String
     {
-        return "\(self.group.description) \(ListenCommand().description)"
+        return "\(self.group.description).\(ListenCommand().description)"
     }
 }
+
+extension GhostwriterListenEffect
+{
+    public var glyphs: Text
+    {
+        return "\(self.group.glyphs).\(ListenCommand().glyphs)".text
+    }
+}
+

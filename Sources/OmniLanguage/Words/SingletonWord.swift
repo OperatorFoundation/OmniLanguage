@@ -18,8 +18,10 @@ public class SingletonWord: Word
 
     public let spelling: Text
 
-    public init(spelling: Text)
+    public init(spelling: Text, glyphs: Text)
     {
         self.spelling = spelling
+
+        super.init(glyphs: glyphs)
     }
 }

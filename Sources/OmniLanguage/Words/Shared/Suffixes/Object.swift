@@ -13,6 +13,6 @@ public class Object: Suffix
 {
     public init()
     {
-        super.init(spelling: "o")
+        super.init(spelling: "o", glyphs: "□")
     }
 }

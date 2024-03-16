@@ -7,6 +7,9 @@
 
 import Foundation
 
+import Text
+
 public protocol Composition
 {
+    var glyphs: Text { get }
 }

@@ -11,6 +11,6 @@ public class Temporal: Root
 {
     public init()
     {
-        super.init(spelling: "temp")
+        super.init(spelling: "temp", glyphs: "◷")
     }
 }

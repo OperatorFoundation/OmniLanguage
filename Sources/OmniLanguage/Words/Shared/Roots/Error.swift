@@ -13,6 +13,6 @@ public class Erroneous: Root
 {
     public init()
     {
-        super.init(spelling: "erar")
+        super.init(spelling: "erar", glyphs: "⍉")
     }
 }

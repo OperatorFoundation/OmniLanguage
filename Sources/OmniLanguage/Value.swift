@@ -44,3 +44,27 @@ extension Value: CustomStringConvertible
         }
     }
 }
+
+extension Value
+{
+    public var glyphs: Text
+    {
+        switch self
+        {
+            case .number(let value):
+                return value.toText()
+
+            case .text(let value):
+                return value
+
+            case .structuredText(let value):
+                return value.description.text
+
+            case .time(let value):
+                return value.text
+
+            case .timeDuration(let value):
+                return value.glyphs
+        }
+    }
+}

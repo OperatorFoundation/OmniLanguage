@@ -13,6 +13,6 @@ public class Catch: Root
 {
     public init()
     {
-        super.init(spelling: "kapt")
+        super.init(spelling: "kapt", glyphs: "⍗")
     }
 }

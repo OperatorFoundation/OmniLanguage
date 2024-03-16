@@ -13,6 +13,6 @@ public class Listen: Root
 {
     public init()
     {
-        super.init(spelling: "aŭskult")
+        super.init(spelling: "aŭskult", glyphs: "੭")
     }
 }

@@ -7,6 +7,8 @@
 
 import Foundation
 
+import Text
+
 public class EffectChain
 {
     public let instance: EffectInstance
@@ -42,5 +44,26 @@ extension EffectChain: CustomStringConvertible
         }
 
         return result
+    }
+}
+
+extension EffectChain
+{
+    public var glyphs: Text
+    {
+        let result: MutableText = ""
+
+        result.becomeAppended(instance.glyphs)
+        result.becomeAppended("\n")
+
+        if let (sequencer, chain) = self.next
+        {
+            result.becomeAppended(sequencer.glyphs)
+            result.becomeAppended("\n")
+
+            result.becomeAppended(chain.glyphs)
+        }
+
+        return result.text
     }
 }

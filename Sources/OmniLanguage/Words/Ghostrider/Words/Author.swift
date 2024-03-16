@@ -11,6 +11,6 @@ public class Author: AffixedWord
 {
     public init()
     {
-        super.init(roots: [Authorial()], suffixes: [Object()])
+        super.init(roots: [Authorial()], suffixes: [Object()], glyphs: Authorial().glyphs)
     }
 }

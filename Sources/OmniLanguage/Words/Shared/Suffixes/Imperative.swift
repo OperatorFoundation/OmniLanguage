@@ -13,6 +13,6 @@ public class Imperative: Suffix
 {
     public init()
     {
-        super.init(spelling: "u")
+        super.init(spelling: "u", glyphs: "!")
     }
 }

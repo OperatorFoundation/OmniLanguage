@@ -11,6 +11,6 @@ public class Register: Root
 {
     public init()
     {
-        super.init(spelling: "registr")
+        super.init(spelling: "registr", glyphs: "ꖴ")
     }
 }

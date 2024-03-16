@@ -7,10 +7,12 @@
 
 import Foundation
 
+import Text
+
 public class With: SingletonWord
 {
     public init()
     {
-        super.init(spelling: "kun")
+        super.init(spelling: "kun", glyphs: "∘")
     }
 }

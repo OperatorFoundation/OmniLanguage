@@ -11,6 +11,6 @@ public class PresentTenseVerb: Suffix
 {
     public init()
     {
-        super.init(spelling: "as")
+        super.init(spelling: "as", glyphs: "^")
     }
 }

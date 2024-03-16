@@ -8,6 +8,7 @@
 import Foundation
 
 import Ghostwriter
+import Text
 
 public class GhostwriterSpeakEffect: Effect
 {
@@ -25,6 +26,14 @@ extension GhostwriterSpeakEffect: CustomStringConvertible
 {
     public var description: String
     {
-        return "\(self.group.description) \(SpeakCommand().description)"
+        return "\(self.group.description).\(SpeakCommand().description)"
+    }
+}
+
+extension GhostwriterSpeakEffect
+{
+    public var glyphs: Text
+    {
+        return "\(self.group.glyphs).\(SpeakCommand().glyphs)".text
     }
 }
