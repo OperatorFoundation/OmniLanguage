@@ -34,6 +34,6 @@ extension Refinement
 {
     public var glyphs: Text
     {
-        return "⚙ \(self.nameGlyphs): \(value.glyphs)".text
+        return "⚙ \(self.nameGlyphs) \(value.glyphs)".text
     }
 }

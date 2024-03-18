@@ -31,6 +31,6 @@ extension Binding
 {
     public var glyphs: Text
     {
-        return With().glyphs.append(" ").append(value.glyphs)
+        return value.glyphs
     }
 }

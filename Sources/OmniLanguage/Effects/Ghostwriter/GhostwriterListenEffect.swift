@@ -34,7 +34,7 @@ extension GhostwriterListenEffect: CustomStringConvertible
 {
     public var description: String
     {
-        return "\(self.group.description).\(ListenCommand().description)"
+        return "\(self.group.description) \(ListenCommand().description)"
     }
 }
 
@@ -42,7 +42,7 @@ extension GhostwriterListenEffect
 {
     public var glyphs: Text
     {
-        return "\(self.group.glyphs).\(ListenCommand().glyphs)".text
+        return "\(self.group.glyphs)\(ListenCommand().glyphs)".text
     }
 }
 

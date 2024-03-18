@@ -26,6 +26,6 @@ extension Sequential
 {
     public var glyphs: Text
     {
-        return "⋮"
+        return ":"
     }
 }

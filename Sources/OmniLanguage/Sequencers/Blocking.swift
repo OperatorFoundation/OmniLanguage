@@ -26,6 +26,6 @@ extension Blocking
 {
     public var glyphs: Text
     {
-        return "፥"
+        return "÷"
     }
 }
