@@ -11,6 +11,6 @@ public class MaxSize: Refinement
 {
     public init(_ value: Value)
     {
-        super.init(name: "maxSize", glyphs: TimeLimit().glyphs, value: value)
+        super.init(name: "maxSize", glyphs: LengthLimit().glyphs, value: value)
     }
 }

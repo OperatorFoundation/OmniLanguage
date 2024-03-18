@@ -20,7 +20,7 @@ extension TimeDuration
                 let result: MutableText = ""
                 result.becomeAppended(self.ticks.string.text)
                 result.becomeAppended(" ")
-                result.becomeAppended(Milliseconds().glyphs)
+                result.becomeAppended(Millisecond().glyphs)
 
                 return result.text
 
@@ -28,7 +28,7 @@ extension TimeDuration
                 let result: MutableText = ""
                 result.becomeAppended(self.ticks.string.text)
                 result.becomeAppended(" ")
-                result.becomeAppended(Nanoseconds().glyphs)
+                result.becomeAppended(Nanosecond().glyphs)
 
                 return result.text
 
@@ -36,7 +36,7 @@ extension TimeDuration
                 let result: MutableText = ""
                 result.becomeAppended(self.ticks.string.text)
                 result.becomeAppended(" ")
-                result.becomeAppended(Seconds().glyphs)
+                result.becomeAppended(SecondOfTime().glyphs)
 
                 return result.text
         }
