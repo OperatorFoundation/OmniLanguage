@@ -33,10 +33,10 @@ extension EffectChain: CustomStringConvertible
         var result: String = ""
 
         result.append(instance.description)
-        result.append("\n")
 
         if let (sequencer, chain) = self.next
         {
+            result.append(", ")
             result.append(sequencer.description)
             result.append("\n")
 
@@ -49,19 +49,43 @@ extension EffectChain: CustomStringConvertible
 
 extension EffectChain
 {
-    public var glyphs: Text
+    public func findSpacing() -> Int
+    {
+        var spacing: Int = 1
+        var current: EffectChain? = self
+        while current != nil
+        {
+            spacing = max(spacing, current!.instance.glyphs.count())
+            if let next = current!.next
+            {
+                let (_, nextInstance) = next
+                current = nextInstance
+            }
+            else
+            {
+                current = nil
+            }
+        }
+
+        return spacing
+    }
+
+    public func format(spacing: Int) -> Text
     {
         let result: MutableText = ""
 
         result.becomeAppended(instance.glyphs)
-        result.becomeAppended("\n")
+
+        let currentSpacing = spacing - instance.glyphs.count() + 1
+        let spacingText = String(repeating: " ", count: currentSpacing).text
 
         if let (sequencer, chain) = self.next
         {
+            result.becomeAppended(spacingText)
             result.becomeAppended(sequencer.glyphs)
             result.becomeAppended("\n")
 
-            result.becomeAppended(chain.glyphs)
+            result.becomeAppended(chain.format(spacing: spacing))
         }
 
         return result.text

@@ -14,6 +14,7 @@ public enum EffectGroup: Codable
     case console
     case logger
     case ghostwriter
+    case flow
 }
 
 extension EffectGroup
@@ -30,6 +31,9 @@ extension EffectGroup
 
             case .ghostwriter:
                 return Author()
+
+            case .flow:
+                return Flow()
         }
     }
 }
@@ -56,6 +60,9 @@ extension EffectGroup
 
             case .ghostwriter:
                 return Textual().glyphs
+
+            case .flow:
+                return Flowing().glyphs
         }
     }
 }

@@ -81,7 +81,9 @@ final class OmniLanguageTests: XCTestCase
         )
 
         print(chain.description)
-        print(chain.glyphs)
+
+        let spacing = chain.findSpacing()
+        print(chain.format(spacing: spacing))
     }
 
     func testPop3Client() throws
@@ -146,8 +148,7 @@ final class OmniLanguageTests: XCTestCase
         let listen2 = GhostwriterListenEffect()
         let binding3 = Binding(value: .structuredText(StructuredText(TypedText.text("250 STARTTLS"), TypedText.newline(.crlf))
         ))
-        let timeout = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 10)))
-        let instance3 = EffectInstance(effect: listen2, binding: binding3, refinements: [maxSize, timeout])
+        let instance3 = EffectInstance(effect: listen2, binding: binding3, refinements: [maxSize])
         
         // try await speak(structuredText: StructuredText(TypedText.text("STARTTLS"), TypedText.newline(.crlf)))
         let speak2 = GhostwriterSpeakEffect()
@@ -160,22 +161,31 @@ final class OmniLanguageTests: XCTestCase
         let listen3 = GhostwriterListenEffect()
         let binding5 = Binding(value: .structuredText(StructuredText(TypedText.regexp("^(.+)$"), TypedText.newline(.crlf))
         ))
-        let instance5 = EffectInstance(effect: listen3, binding: binding5, refinements: [maxSize, timeout])
+        let instance5 = EffectInstance(effect: listen3, binding: binding5, refinements: [maxSize])
+
+        let end = EndProgramEffect()
+        let instance6 = EffectInstance(effect: end)
+
+        let timeout = TimeDuration(resolution: .seconds, ticks: 10)
 
         let chain = EffectChain(
             instance: instance1,
-            sequencer: Blocking(),
+            sequencer: Waiting(),
             chain: EffectChain(
                 instance: instance2,
                 sequencer: Sequential(),
                 chain: EffectChain(
                     instance: instance3,
-                    sequencer: Blocking(),
+                    sequencer: Waiting(timeout),
                     chain: EffectChain(
                         instance: instance4,
                         sequencer: Sequential(),
                         chain: EffectChain(
-                            instance: instance5
+                            instance: instance5,
+                            sequencer: Waiting(timeout),
+                            chain: EffectChain(
+                                instance: instance6
+                            )
                         )
                     )
                 )
@@ -183,8 +193,10 @@ final class OmniLanguageTests: XCTestCase
         )
 
         print(chain.description)
-        print(chain.glyphs)
-        
+
+        let spacing = chain.findSpacing()
+        print(chain.format(spacing: spacing))
+
         let compiler = SwiftOmniCompiler()
         let result = try compiler.compile("SMTPClient", chain)
 

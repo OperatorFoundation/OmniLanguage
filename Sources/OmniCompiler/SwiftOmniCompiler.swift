@@ -49,6 +49,52 @@ public class SwiftOmniCompiler: OmniCompiler
         return results
     }
 
+    func chainToWaitingStatements(_ waiting: Waiting, _ chain: EffectChain) throws -> [Statement]
+    {
+        let instanceStatement = try self.instanceToStatement(chain.instance)
+
+        var results: [Statement] = [try self.wrapWaiting(waiting, instanceStatement)]
+
+        if let (sequencer, nextChain) = chain.next
+        {
+            let statements: [Statement] = try self.sequencedChainToStatements(sequencer, nextChain)
+            results.append(contentsOf: statements)
+        }
+
+        return results
+    }
+
+    func wrapWaiting(_ waiting: Waiting, _ statement: Statement) throws -> Statement
+    {
+        let seconds = waiting.timeout.seconds()
+        let secondsInt = try seconds.toInt()
+        let argument = Argument(
+            label: "timeout",
+            value: .literal(.enumCaseConstructor(EnumCaseConstructor(
+                type: "Duration",
+                name: "seconds",
+                values: [
+                    .literal(.number(secondsInt))
+                ]
+            )))
+        )
+
+        return .expression(.chain(ChainedExpression(
+            lvalue: .constructorCall(ConstructorCall(
+                name: "Timeout",
+                arguments: [argument]
+            )),
+            rvalue: FunctionCall(
+                name: "wait",
+                arguments: [
+                    Argument(value: .literal(.closure(Closure(statements: [
+                        statement
+                    ]))))
+                ]
+            ))
+        ))
+    }
+
     func instanceToStatement(_ instance: EffectInstance) throws -> Statement
     {
         switch instance.effect
@@ -58,6 +104,9 @@ public class SwiftOmniCompiler: OmniCompiler
 
             case let speakEffect as GhostwriterSpeakEffect:
                 return try self.speakToStatement(speakEffect, instance.binding, instance.refinements)
+
+            case is EndProgramEffect:
+                return .return
 
             default:
                 throw SwiftOmniCompilerError.unsupportedEffect(instance.effect)
@@ -73,9 +122,12 @@ public class SwiftOmniCompiler: OmniCompiler
             case is Blocking:
                 return try self.chainToStatements(nextChain)
 
-            // FIXME - for now, treat blocking and sequential as the same
+            // Temporarily treat sequential the same as blocking
             case is Sequential:
                 return try self.chainToStatements(nextChain)
+
+            case let waiting as Waiting:
+                return try self.chainToWaitingStatements(waiting, nextChain)
 
             default:
                 throw SwiftOmniCompilerError.unsupportedSequencer(sequencer)
