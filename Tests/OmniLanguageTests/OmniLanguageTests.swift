@@ -133,9 +133,8 @@ final class OmniLanguageTests: XCTestCase
         let listen1 = GhostwriterListenEffect()
         let binding1 = Binding(value: .structuredText(StructuredText(TypedText.text("220 "), TypedText.regexp("^([a-zA-Z0-9.-]+)"), TypedText.text(" SMTP service ready"), TypedText.newline(.crlf))
         ))
-        let timeout1 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: UInt64(Int.max))))
         let maxSize = MaxSize(.number(.int(253)))
-        let instance1 = EffectInstance(effect: listen1, binding: binding1, refinements: [maxSize, timeout1])
+        let instance1 = EffectInstance(effect: listen1, binding: binding1, refinements: [maxSize])
 
         // try await speak(structuredText: StructuredText(TypedText.text("EHLO mail.imc.org"), TypedText.newline(.crlf)))
         let speak1 = GhostwriterSpeakEffect()
@@ -147,8 +146,8 @@ final class OmniLanguageTests: XCTestCase
         let listen2 = GhostwriterListenEffect()
         let binding3 = Binding(value: .structuredText(StructuredText(TypedText.text("250 STARTTLS"), TypedText.newline(.crlf))
         ))
-        let timeout2 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 10)))
-        let instance3 = EffectInstance(effect: listen2, binding: binding3, refinements: [maxSize, timeout2])
+        let timeout = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 10)))
+        let instance3 = EffectInstance(effect: listen2, binding: binding3, refinements: [maxSize, timeout])
         
         // try await speak(structuredText: StructuredText(TypedText.text("STARTTLS"), TypedText.newline(.crlf)))
         let speak2 = GhostwriterSpeakEffect()
@@ -161,7 +160,7 @@ final class OmniLanguageTests: XCTestCase
         let listen3 = GhostwriterListenEffect()
         let binding5 = Binding(value: .structuredText(StructuredText(TypedText.regexp("^(.+)$"), TypedText.newline(.crlf))
         ))
-        let instance5 = EffectInstance(effect: listen3, binding: binding5, refinements: [maxSize, timeout2])
+        let instance5 = EffectInstance(effect: listen3, binding: binding5, refinements: [maxSize, timeout])
 
         let chain = EffectChain(
             instance: instance1,
