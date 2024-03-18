@@ -54,10 +54,10 @@ public class SwiftOmniCompiler: OmniCompiler
         switch instance.effect
         {
             case let listenEffect as GhostwriterListenEffect:
-                return try self.listenToStatement(listenEffect, instance.binding, instance.refinement)
+                return try self.listenToStatement(listenEffect, instance.binding, instance.refinements)
 
             case let speakEffect as GhostwriterSpeakEffect:
-                return try self.speakToStatement(speakEffect, instance.binding, instance.refinement)
+                return try self.speakToStatement(speakEffect, instance.binding, instance.refinements)
 
             default:
                 throw SwiftOmniCompilerError.unsupportedEffect(instance.effect)
@@ -82,7 +82,7 @@ public class SwiftOmniCompiler: OmniCompiler
         }
     }
 
-    func listenToStatement(_ effect: GhostwriterListenEffect, _ binding: Binding?, _ refinement: Refinement?) throws -> Statement
+    func listenToStatement(_ effect: GhostwriterListenEffect, _ binding: Binding?, _ refinements: [Refinement]) throws -> Statement
     {
         guard let binding else
         {
@@ -100,22 +100,34 @@ public class SwiftOmniCompiler: OmniCompiler
         }
 
         var arguments: [Argument] = try [self.structuredTextToArgument(structuredText)]
-        if let refinement
+        for refinement in refinements
         {
-            guard refinement.name == "timeout" else
+            switch refinement 
             {
-                throw SwiftOmniCompilerError.unknownRefinementType(refinement.name)
-            }
-
-            switch refinement.value
-            {
-                case .timeDuration(let duration):
-                    let seconds = duration.seconds()
-                    let secondsInt = try seconds.toInt()
-                    arguments.append(Argument(label: "timeout", value: .literal(.enumCaseConstructor(EnumCaseConstructor(type: "Duration", name: "seconds", values: [.literal(.number(secondsInt))])))))
-
+                case is Timeout:
+                    switch refinement.value
+                    {
+                        case .timeDuration(let duration):
+                            let seconds = duration.seconds()
+                            let secondsInt = try seconds.toInt()
+                            arguments.append(Argument(label: "timeout", value: .literal(.enumCaseConstructor(EnumCaseConstructor(type: "Duration", name: "seconds", values: [.literal(.number(secondsInt))])))))
+                            
+                        default:
+                            throw SwiftOmniCompilerError.unsupportedRefinementValueType(refinement.value)
+                    }
+                    
+                case is MaxSize:
+                    switch refinement.value
+                    {
+                        case .number(let maxSize):
+                            arguments.append(Argument(label: "maxSize", value: .literal(.number(try maxSize.toInt()))))
+                        
+                        default:
+                            throw SwiftOmniCompilerError.unsupportedRefinementValueType(refinement.value)
+                    }
+                
                 default:
-                    throw SwiftOmniCompilerError.unsupportedRefinementValueType(refinement.value)
+                    throw SwiftOmniCompilerError.unsupportedRefinement(refinement)
             }
         }
 
@@ -130,7 +142,7 @@ public class SwiftOmniCompiler: OmniCompiler
         )
     }
 
-    func speakToStatement(_ effect: GhostwriterSpeakEffect, _ binding: Binding?, _ refinement: Refinement?) throws -> Statement
+    func speakToStatement(_ effect: GhostwriterSpeakEffect, _ binding: Binding?, _ refinements: [Refinement]) throws -> Statement
     {
         guard let binding else
         {
@@ -147,10 +159,10 @@ public class SwiftOmniCompiler: OmniCompiler
                 throw SwiftOmniCompilerError.bindingTypeMismtatch
         }
 
-        if let refinement
+        guard refinements.isEmpty else
         {
             // speak doesn't support any refinements
-            throw SwiftOmniCompilerError.unsupportedRefinement(refinement)
+            throw SwiftOmniCompilerError.unsupportedRefinement(refinements[0])
         }
 
         return Statement.expression(.functionCall(FunctionCall(

@@ -59,7 +59,7 @@ final class OmniLanguageTests: XCTestCase
             .text("STLS"), .newline(.crlf)
         )))
         let refinement = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance2 = EffectInstance(effect: effect2, binding: binding2, refinement: refinement)
+        let instance2 = EffectInstance(effect: effect2, binding: binding2, refinements: [refinement])
 
         // Instance
         let effect3 = GhostwriterSpeakEffect()
@@ -97,7 +97,7 @@ final class OmniLanguageTests: XCTestCase
             .text("+OK POP3 server ready."), .newline(.crlf)
         )))
         let refinement1 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance1 = EffectInstance(effect: effect1, binding: binding1, refinement: refinement1)
+        let instance1 = EffectInstance(effect: effect1, binding: binding1, refinements: [refinement1])
 
         let effect2 = GhostwriterSpeakEffect()
         let binding2 = Binding(value: .structuredText(StructuredText(
@@ -110,7 +110,7 @@ final class OmniLanguageTests: XCTestCase
             .text("+OK Begin TLS Negotiation"), .newline(.crlf)
         )))
         let refinement3 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance3 = EffectInstance(effect: effect3, binding: binding3, refinement: refinement3)
+        let instance3 = EffectInstance(effect: effect3, binding: binding3, refinements: [refinement3])
 
         let chain = EffectChain(
             instance: instance1,
@@ -125,6 +125,71 @@ final class OmniLanguageTests: XCTestCase
         )
 
         print(chain.description)
+    }
+    
+    func testSMTPClient() throws
+    {
+        // let _ = try await listen(structuredText: StructuredText(TypedText.text("220 "), TypedText.regexp("^([a-zA-Z0-9.-]+)"), TypedText.text(" SMTP service ready"), TypedText.newline(.crlf)), maxSize: 253, timeout: .seconds(Int.max))
+        let listen1 = GhostwriterListenEffect()
+        let binding1 = Binding(value: .structuredText(StructuredText(TypedText.text("220 "), TypedText.regexp("^([a-zA-Z0-9.-]+)"), TypedText.text(" SMTP service ready"), TypedText.newline(.crlf))
+        ))
+        let timeout1 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: UInt64(Int.max))))
+        let maxSize = MaxSize(.number(.int(253)))
+        let instance1 = EffectInstance(effect: listen1, binding: binding1, refinements: [maxSize, timeout1])
+
+        // try await speak(structuredText: StructuredText(TypedText.text("EHLO mail.imc.org"), TypedText.newline(.crlf)))
+        let speak1 = GhostwriterSpeakEffect()
+        let binding2 = Binding(value: .structuredText(StructuredText(TypedText.text("EHLO mail.imc.org"), TypedText.newline(.crlf))
+        ))
+        let instance2 = EffectInstance(effect: speak1, binding: binding2)
+
+        //  _ = try await listen(structuredText: StructuredText(TypedText.text("250 STARTTLS"), TypedText.newline(.crlf)), maxSize: 253, timeout: .seconds(10))
+        let listen2 = GhostwriterListenEffect()
+        let binding3 = Binding(value: .structuredText(StructuredText(TypedText.text("250 STARTTLS"), TypedText.newline(.crlf))
+        ))
+        let timeout2 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 10)))
+        let instance3 = EffectInstance(effect: listen2, binding: binding3, refinements: [maxSize, timeout2])
+        
+        // try await speak(structuredText: StructuredText(TypedText.text("STARTTLS"), TypedText.newline(.crlf)))
+        let speak2 = GhostwriterSpeakEffect()
+        let binding4 = Binding(value: .structuredText(StructuredText(TypedText.text("STARTTLS"), TypedText.newline(.crlf))
+        ))
+        let instance4 = EffectInstance(effect: speak2, binding: binding4)
+        
+        // _ = try await listen(structuredText: StructuredText(TypedText.regexp("^(.+)$"), TypedText.newline(.crlf)), maxSize: 253, timeout: .seconds(10))
+        
+        let listen3 = GhostwriterListenEffect()
+        let binding5 = Binding(value: .structuredText(StructuredText(TypedText.regexp("^(.+)$"), TypedText.newline(.crlf))
+        ))
+        let instance5 = EffectInstance(effect: listen3, binding: binding5, refinements: [maxSize, timeout2])
+
+        let chain = EffectChain(
+            instance: instance1,
+            sequencer: Blocking(),
+            chain: EffectChain(
+                instance: instance2,
+                sequencer: Sequential(),
+                chain: EffectChain(
+                    instance: instance3,
+                    sequencer: Blocking(),
+                    chain: EffectChain(
+                        instance: instance4,
+                        sequencer: Sequential(),
+                        chain: EffectChain(
+                            instance: instance5
+                        )
+                    )
+                )
+            )
+        )
+
+        print(chain.description)
+        print(chain.glyphs)
+        
+        let compiler = SwiftOmniCompiler()
+        let result = try compiler.compile("SMTPClient", chain)
+
+        print(result)
     }
 
     func testCompilePop3Server() throws
@@ -146,7 +211,7 @@ final class OmniLanguageTests: XCTestCase
             .text("STLS"), .newline(.crlf)
         )))
         let refinement = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance2 = EffectInstance(effect: effect2, binding: binding2, refinement: refinement)
+        let instance2 = EffectInstance(effect: effect2, binding: binding2, refinements: [refinement])
 
         let effect3 = GhostwriterSpeakEffect()
         let binding3 = Binding(value: .structuredText(StructuredText(
@@ -187,7 +252,7 @@ final class OmniLanguageTests: XCTestCase
             .text("+OK POP3 server ready."), .newline(.crlf)
         )))
         let refinement1 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance1 = EffectInstance(effect: effect1, binding: binding1, refinement: refinement1)
+        let instance1 = EffectInstance(effect: effect1, binding: binding1, refinements: [refinement1])
 
         let effect2 = GhostwriterSpeakEffect()
         let binding2 = Binding(value: .structuredText(StructuredText(
@@ -200,7 +265,7 @@ final class OmniLanguageTests: XCTestCase
             .text("+OK Begin TLS Negotiation"), .newline(.crlf)
         )))
         let refinement3 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance3 = EffectInstance(effect: effect3, binding: binding3, refinement: refinement3)
+        let instance3 = EffectInstance(effect: effect3, binding: binding3, refinements: [refinement3])
 
         let chain = EffectChain(
             instance: instance1,

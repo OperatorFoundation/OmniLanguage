@@ -13,13 +13,13 @@ public struct EffectInstance
 {
     public var effect: Effect
     public var binding: Binding?
-    public var refinement: Refinement?
+    public var refinements: [Refinement]
 
-    public init(effect: Effect, binding: Binding? = nil, refinement: Refinement? = nil)
+    public init(effect: Effect, binding: Binding? = nil, refinements: [Refinement] = [])
     {
         self.effect = effect
         self.binding = binding
-        self.refinement = refinement
+        self.refinements = refinements
     }
 }
 
@@ -36,7 +36,7 @@ extension EffectInstance: CustomStringConvertible
             result.append(" "+binding.description)
         }
 
-        if let refinement = self.refinement
+        for refinement in self.refinements
         {
             result.append(" "+refinement.description)
         }
@@ -59,7 +59,7 @@ extension EffectInstance
             result.becomeAppended(binding.glyphs)
         }
 
-        if let refinement = self.refinement
+        for refinement in self.refinements
         {
             result.becomeAppended(" ")
             result.becomeAppended(refinement.glyphs)
