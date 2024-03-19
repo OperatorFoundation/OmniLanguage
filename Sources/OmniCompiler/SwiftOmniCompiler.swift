@@ -131,7 +131,6 @@ public class SwiftOmniCompiler: OmniCompiler
         let seconds = waiting.timeout.seconds()
         let secondsInt = try seconds.toInt()
         let argument = Argument(
-            label: "timeout",
             value: .literal(.enumCaseConstructor(EnumCaseConstructor(
                 type: "Duration",
                 name: "seconds",
@@ -147,6 +146,8 @@ public class SwiftOmniCompiler: OmniCompiler
                 arguments: [argument]
             )),
             rvalue: FunctionCall(
+                trying: true,
+                async: true,
                 name: "wait",
                 arguments: [
                     Argument(value: .literal(.closure(Closure(statements: [
