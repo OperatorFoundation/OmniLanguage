@@ -30,11 +30,11 @@ public class SwiftOmniCompiler: OmniCompiler
             name: "handle\(name)".text,
             throwing: true,
             async: true,
-            statements: try self.chainToStatements(chain)
+            statements: try self.firstChainToStatements(chain)
         )
     }
 
-    func chainToStatements(_ chain: EffectChain) throws -> [Statement]
+    func firstChainToStatements(_ chain: EffectChain) throws -> [Statement]
     {
         let statement = try self.instanceToStatement(chain.instance)
 
@@ -42,23 +42,85 @@ public class SwiftOmniCompiler: OmniCompiler
 
         if let (sequencer, nextChain) = chain.next
         {
-            let statements: [Statement] = try self.sequencedChainToStatements(sequencer, nextChain)
-            results.append(contentsOf: statements)
+            results = try self.sequencedChainToStatements(statement, sequencer, nextChain)
         }
 
         return results
     }
 
-    func chainToWaitingStatements(_ waiting: Waiting, _ chain: EffectChain) throws -> [Statement]
+    func chainToStatements(_ statement: Statement, _ chain: EffectChain) throws -> [Statement]
     {
-        let instanceStatement = try self.instanceToStatement(chain.instance)
+        let statement = try self.instanceToStatement(chain.instance)
 
-        var results: [Statement] = [try self.wrapWaiting(waiting, instanceStatement)]
+        var results: [Statement] = [statement]
 
         if let (sequencer, nextChain) = chain.next
         {
-            let statements: [Statement] = try self.sequencedChainToStatements(sequencer, nextChain)
+            results = try self.sequencedChainToStatements(statement, sequencer, nextChain)
+        }
+
+        return results
+    }
+
+    func instanceToStatement(_ instance: EffectInstance) throws -> Statement
+    {
+        switch instance.effect
+        {
+            case let listenEffect as GhostwriterListenEffect:
+                return try self.listenToStatement(listenEffect, instance.binding, instance.refinements)
+
+            case let speakEffect as GhostwriterSpeakEffect:
+                return try self.speakToStatement(speakEffect, instance.binding, instance.refinements)
+
+            case is EndProgramEffect:
+                return .return
+
+            default:
+                throw SwiftOmniCompilerError.unsupportedEffect(instance.effect)
+        }
+    }
+
+    func sequencedChainToStatements(_ statement: Statement, _ sequencer: Sequencer, _ nextChain: EffectChain) throws -> [Statement]
+    {
+        // FIXME
+        switch sequencer
+        {
+            // Blocking is the default behavior for a sequence of Swift statements.
+            case is Blocking:
+                var results = [statement]
+                let rest: [Statement] = try self.chainToStatements(statement, nextChain)
+                results.append(contentsOf: rest)
+                return results
+
+            // Temporarily treat sequential the same as blocking
+            case is Sequential:
+                var results = [statement]
+                let rest: [Statement] = try self.chainToStatements(statement, nextChain)
+                results.append(contentsOf: rest)
+                return results
+
+            case let waiting as Waiting:
+                return try self.chainToWaitingStatements(statement, waiting, nextChain)
+
+            default:
+                throw SwiftOmniCompilerError.unsupportedSequencer(sequencer)
+        }
+    }
+
+    func chainToWaitingStatements(_ statement: Statement, _ waiting: Waiting, _ chain: EffectChain) throws -> [Statement]
+    {
+        var results: [Statement] = [try self.wrapWaiting(waiting, statement)]
+
+        let instanceStatement = try self.instanceToStatement(chain.instance)
+
+        if let (sequencer, nextChain) = chain.next
+        {
+            let statements: [Statement] = try self.sequencedChainToStatements(instanceStatement, sequencer, nextChain)
             results.append(contentsOf: statements)
+        }
+        else
+        {
+            results.append(instanceStatement)
         }
 
         return results
@@ -93,45 +155,6 @@ public class SwiftOmniCompiler: OmniCompiler
                 ]
             ))
         ))
-    }
-
-    func instanceToStatement(_ instance: EffectInstance) throws -> Statement
-    {
-        switch instance.effect
-        {
-            case let listenEffect as GhostwriterListenEffect:
-                return try self.listenToStatement(listenEffect, instance.binding, instance.refinements)
-
-            case let speakEffect as GhostwriterSpeakEffect:
-                return try self.speakToStatement(speakEffect, instance.binding, instance.refinements)
-
-            case is EndProgramEffect:
-                return .return
-
-            default:
-                throw SwiftOmniCompilerError.unsupportedEffect(instance.effect)
-        }
-    }
-
-    func sequencedChainToStatements(_ sequencer: Sequencer, _ nextChain: EffectChain) throws -> [Statement]
-    {
-        // FIXME
-        switch sequencer
-        {
-            // Blocking is the default behavior for a sequence of Swift statements.
-            case is Blocking:
-                return try self.chainToStatements(nextChain)
-
-            // Temporarily treat sequential the same as blocking
-            case is Sequential:
-                return try self.chainToStatements(nextChain)
-
-            case let waiting as Waiting:
-                return try self.chainToWaitingStatements(waiting, nextChain)
-
-            default:
-                throw SwiftOmniCompilerError.unsupportedSequencer(sequencer)
-        }
     }
 
     func listenToStatement(_ effect: GhostwriterListenEffect, _ binding: Binding?, _ refinements: [Refinement]) throws -> Statement
