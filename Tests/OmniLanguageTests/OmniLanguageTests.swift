@@ -58,8 +58,7 @@ final class OmniLanguageTests: XCTestCase
         let binding2 = Binding(value: .structuredText(StructuredText(
             .text("STLS"), .newline(.crlf)
         )))
-        let refinement = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance2 = EffectInstance(effect: effect2, binding: binding2, refinements: [refinement])
+        let instance2 = EffectInstance(effect: effect2, binding: binding2)
 
         // Instance
         let effect3 = GhostwriterSpeakEffect()
@@ -98,8 +97,7 @@ final class OmniLanguageTests: XCTestCase
         let binding1 = Binding(value: .structuredText(StructuredText(
             .text("+OK POP3 server ready."), .newline(.crlf)
         )))
-        let refinement1 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance1 = EffectInstance(effect: effect1, binding: binding1, refinements: [refinement1])
+        let instance1 = EffectInstance(effect: effect1, binding: binding1)
 
         let effect2 = GhostwriterSpeakEffect()
         let binding2 = Binding(value: .structuredText(StructuredText(
@@ -111,8 +109,7 @@ final class OmniLanguageTests: XCTestCase
         let binding3 = Binding(value: .structuredText(StructuredText(
             .text("+OK Begin TLS Negotiation"), .newline(.crlf)
         )))
-        let refinement3 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance3 = EffectInstance(effect: effect3, binding: binding3, refinements: [refinement3])
+        let instance3 = EffectInstance(effect: effect3, binding: binding3)
 
         let chain = EffectChain(
             instance: instance1,
@@ -221,8 +218,7 @@ final class OmniLanguageTests: XCTestCase
         let binding2 = Binding(value: .structuredText(StructuredText(
             .text("STLS"), .newline(.crlf)
         )))
-        let refinement = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance2 = EffectInstance(effect: effect2, binding: binding2, refinements: [refinement])
+        let instance2 = EffectInstance(effect: effect2, binding: binding2)
 
         let effect3 = GhostwriterSpeakEffect()
         let binding3 = Binding(value: .structuredText(StructuredText(
@@ -262,8 +258,7 @@ final class OmniLanguageTests: XCTestCase
         let binding1 = Binding(value: .structuredText(StructuredText(
             .text("+OK POP3 server ready."), .newline(.crlf)
         )))
-        let refinement1 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance1 = EffectInstance(effect: effect1, binding: binding1, refinements: [refinement1])
+        let instance1 = EffectInstance(effect: effect1, binding: binding1)
 
         let effect2 = GhostwriterSpeakEffect()
         let binding2 = Binding(value: .structuredText(StructuredText(
@@ -275,8 +270,7 @@ final class OmniLanguageTests: XCTestCase
         let binding3 = Binding(value: .structuredText(StructuredText(
             .text("+OK Begin TLS Negotiation"), .newline(.crlf)
         )))
-        let refinement3 = Timeout(.timeDuration(TimeDuration(resolution: .seconds, ticks: 5)))
-        let instance3 = EffectInstance(effect: effect3, binding: binding3, refinements: [refinement3])
+        let instance3 = EffectInstance(effect: effect3, binding: binding3)
 
         let chain = EffectChain(
             instance: instance1,

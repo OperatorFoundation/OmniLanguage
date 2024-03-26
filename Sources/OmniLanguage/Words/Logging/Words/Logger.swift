@@ -9,10 +9,10 @@ import Foundation
 
 import Text
 
-public class Logger: AffixedWord
+public class Logger: SingletonWord
 {
     public init()
     {
-        super.init(roots: [Register()], suffixes: [Object()])
+        super.init(spelling: Bundle.main.localizedString(forKey: "logger", value: nil, table: nil).text, glyphs: "\\□")
     }
 }

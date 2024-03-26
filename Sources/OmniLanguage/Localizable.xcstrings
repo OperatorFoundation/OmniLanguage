@@ -1,8 +1,313 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Key" : {
-      "extractionState" : "manual"
+    "afterwards" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "poste"
+          }
+        }
+      }
+    },
+    "also" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ankaŭ"
+          }
+        }
+      }
+    },
+    "author" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "verkisto"
+          }
+        }
+      }
+    },
+    "awaiting" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "atendante"
+          }
+        }
+      }
+    },
+    "bounds" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "longecalimo"
+          }
+        }
+      }
+    },
+    "catching" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kapte"
+          }
+        }
+      }
+    },
+    "chooses" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "elektas"
+          }
+        }
+      }
+    },
+    "console" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "konzolo"
+          }
+        }
+      }
+    },
+    "end" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fino"
+          }
+        }
+      }
+    },
+    "flow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fluo"
+          }
+        }
+      }
+    },
+    "is" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "estas"
+          }
+        }
+      }
+    },
+    "like" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tiel"
+          }
+        }
+      }
+    },
+    "listens" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aŭskultas"
+          }
+        }
+      }
+    },
+    "logger" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "registro"
+          }
+        }
+      }
+    },
+    "millisecond" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "milisekundo"
+          }
+        }
+      }
+    },
+    "milliseconds" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "milisekundoj"
+          }
+        }
+      }
+    },
+    "nanosecond" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nanosekundo"
+          }
+        }
+      }
+    },
+    "nanoseconds" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nanosekundoj"
+          }
+        }
+      }
+    },
+    "now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nun"
+          }
+        }
+      }
+    },
+    "prints" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "presas"
+          }
+        }
+      }
+    },
+    "second" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sekundo"
+          }
+        }
+      }
+    },
+    "seconds" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sekundoj"
+          }
+        }
+      }
+    },
+    "simultaneously" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "samtempe"
+          }
+        }
+      }
+    },
+    "speaks" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "parolas"
+          }
+        }
+      }
+    },
+    "weekday" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "semajntago"
+          }
+        }
+      }
+    },
+    "with" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kun"
+          }
+        }
+      }
+    },
+    "writes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "scribas"
+          }
+        }
+      }
+    },
+    "writing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "skribo"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

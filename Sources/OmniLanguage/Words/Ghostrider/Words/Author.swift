@@ -7,10 +7,10 @@
 
 import Foundation
 
-public class Author: AffixedWord
+public class Author: SingletonWord
 {
     public init()
     {
-        super.init(roots: [Authorial()], suffixes: [Object()], glyphs: Authorial().glyphs)
+        super.init(spelling: Bundle.main.localizedString(forKey: "author", value: nil, table: nil).text, glyphs: Authorial().glyphs)
     }
 }

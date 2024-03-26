@@ -9,10 +9,10 @@ import Foundation
 
 import Text
 
-public class LogCommand: AffixedWord
+public class LogCommand: SingletonWord
 {
     public init()
     {
-        super.init(roots: [Write()], suffixes: [Imperative()])
+        super.init(spelling: Bundle.main.localizedString(forKey: "writes", value: nil, table: nil).text, glyphs: "\\")
     }
 }

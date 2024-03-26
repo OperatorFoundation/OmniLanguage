@@ -179,19 +179,7 @@ public class SwiftOmniCompiler: OmniCompiler
         for refinement in refinements
         {
             switch refinement 
-            {
-                case is Timeout:
-                    switch refinement.value
-                    {
-                        case .timeDuration(let duration):
-                            let seconds = duration.seconds()
-                            let secondsInt = try seconds.toInt()
-                            arguments.append(Argument(label: "timeout", value: .literal(.enumCaseConstructor(EnumCaseConstructor(type: "Duration", name: "seconds", values: [.literal(.number(secondsInt))])))))
-                            
-                        default:
-                            throw SwiftOmniCompilerError.unsupportedRefinementValueType(refinement.value)
-                    }
-                    
+            {                    
                 case is MaxSize:
                     switch refinement.value
                     {

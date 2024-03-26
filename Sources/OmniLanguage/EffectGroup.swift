@@ -15,6 +15,7 @@ public enum EffectGroup: Codable
     case logger
     case ghostwriter
     case flow
+    case time
 }
 
 extension EffectGroup
@@ -34,6 +35,9 @@ extension EffectGroup
 
             case .flow:
                 return Flow()
+
+            case .time:
+                return Time()
         }
     }
 }
@@ -63,6 +67,9 @@ extension EffectGroup
 
             case .flow:
                 return Flowing().glyphs
+
+            case .time:
+                return Time().glyphs
         }
     }
 }

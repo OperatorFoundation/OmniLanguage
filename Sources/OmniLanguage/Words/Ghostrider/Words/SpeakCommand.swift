@@ -9,10 +9,10 @@ import Foundation
 
 import Text
 
-public class SpeakCommand: AffixedWord
+public class SpeakCommand: SingletonWord
 {
     public init()
     {
-        super.init(roots: [Speak()], suffixes: [Imperative()], glyphs: Speak().glyphs)
+        super.init(spelling: Bundle.main.localizedString(forKey: "speaks", value: nil, table: nil).text, glyphs: Speak().glyphs)
     }
 }

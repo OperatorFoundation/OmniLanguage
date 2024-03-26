@@ -9,10 +9,10 @@ import Foundation
 
 import Text
 
-public class ListenCommand: AffixedWord
+public class ListenCommand: SingletonWord
 {
     public init()
     {
-        super.init(roots: [Listen()], suffixes: [Imperative()], glyphs: Listen().glyphs)
+        super.init(spelling: Bundle.main.localizedString(forKey: "listens", value: nil, table: nil).text, glyphs: Listen().glyphs)
     }
 }

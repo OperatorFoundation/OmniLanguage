@@ -7,10 +7,10 @@
 
 import Foundation
 
-public class Writing: AffixedWord
+public class Writing: SingletonWord
 {
     public init()
     {
-        super.init(roots: [Textual()], suffixes: [Object()], glyphs: "\\")
+        super.init(spelling: Bundle.main.localizedString(forKey: "writing", value: nil, table: nil).text, glyphs: "\\")
     }
 }

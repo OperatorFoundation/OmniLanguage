@@ -13,6 +13,6 @@ public class With: SingletonWord
 {
     public init()
     {
-        super.init(spelling: "kun", glyphs: "∘")
+        super.init(spelling: Bundle.main.localizedString(forKey: "with", value: nil, table: nil).text, glyphs: "∘")
     }
 }

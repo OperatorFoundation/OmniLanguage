@@ -7,10 +7,10 @@
 
 import Foundation
 
-public class LengthLimit: CompoundWord
+public class LengthLimit: SingletonWord
 {
     public init()
     {
-        super.init(parts: [LengthRelated(), Limitation()], glyphs: "|⟷|")
+        super.init(spelling: Bundle.main.localizedString(forKey: "bounds", value: nil, table: nil).text, glyphs: "|⟷|")
     }
 }
