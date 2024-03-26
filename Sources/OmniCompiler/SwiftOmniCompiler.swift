@@ -20,7 +20,7 @@ public class SwiftOmniCompiler: OmniCompiler
     public func compile(_ name: Text, _ chain: EffectChain) throws -> Text
     {
         let blueprint = try self.compileToBlueprint(name: name, chain: chain)
-        return try blueprint.transpile(.swift, indentation: 4)
+        return try blueprint.transpile(.swift, indentation: 1)
     }
 
     func compileToBlueprint(name: Text, chain: EffectChain) throws -> Blueprint
